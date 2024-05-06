@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { productsColumns } from "../../datatablesource";
 import { useEffect } from "react";
+import { Button } from "@mui/material";
 
 const ProductsData = () => {
 	const [data, setData] = useState([]);
@@ -23,16 +24,36 @@ const ProductsData = () => {
 		{
 			field: "action",
 			headerName: "Action",
-			width: 200,
+			width: 300,
 			renderCell: (params) => {
 				return (
 					<div className="cellAction">
-						<div
-							className="deleteButton"
+						<Button
+							variant="outlined"
+							color="error"
+							size="small"
 							onClick={() => handleDelete(params.row.id)}
 						>
 							Delete
-						</div>
+						</Button>
+
+						<Button
+							variant="outlined"
+							color="info"
+							size="small"
+							// onClick={() => handleDelete(params.row.id)}
+						>
+							Edit
+						</Button>
+
+						<Button
+							variant="outlined"
+							color="success"
+							size="small"
+							// onClick={() => handleDelete(params.row.id)}
+						>
+							View
+						</Button>
 					</div>
 				);
 			},
@@ -48,9 +69,9 @@ const ProductsData = () => {
 			<div className="datatableTitle">
 				{/* Add New Product */}
 				Products
-				{/* <Link to="/users/new" className="link">
+				<Link to="/products/new" className="link">
 					Add New
-				</Link> */}
+				</Link>
 			</div>
 			<DataGrid
 				className="datagrid"

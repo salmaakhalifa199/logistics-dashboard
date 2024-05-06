@@ -13,15 +13,67 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import SendIcon from "@mui/icons-material/Send";
+import HistoryIcon from "@mui/icons-material/History";
 
 const Sidebar = () => {
 	const { dispatch } = useContext(DarkModeContext);
+	const [actor, setActor] = useState("admin"); // change actor
+
+	const adminFeatures = [
+		{
+			name: "Supervisors",
+			url: "/users",
+			icon: <PersonOutlineIcon className="icon" />,
+		},
+		{
+			name: "Products",
+			url: "/products",
+			icon: <StoreIcon className="icon" />,
+		},
+		{
+			name: "Warehouses",
+			url: "/warehouses",
+			icon: <CreditCardIcon className="icon" />,
+		},
+	];
+
+	const supervisorFeatures = [
+		{
+			name: "Send Request",
+			url: "/sendRequest",
+			icon: <SendIcon className="icon" />,
+		},
+		{
+			name: "Products",
+			url: "/products",
+			icon: <StoreIcon className="icon" />,
+		},
+		{
+			name: "History",
+			url: "/history",
+			icon: <HistoryIcon className="icon" />,
+		},
+	];
+
+	const handleActorChange = () => {
+		// change actor logic
+	};
+
+	const [features, setFeatures] = useState(adminFeatures);
+	useEffect(() => {
+		if (actor === "admin") {
+			setFeatures(adminFeatures);
+		} else {
+			setFeatures(supervisorFeatures);
+		}
+	}, [actor]);
 	return (
 		<div className="sidebar">
 			<div className="top">
 				<Link to="/" style={{ textDecoration: "none" }}>
-					<span className="logo">Logistics Dashboard (Admin)</span>
+					<span className="logo">Logistics Dashboard ({actor})</span>
 				</Link>
 			</div>
 			<hr />
@@ -33,41 +85,37 @@ const Sidebar = () => {
 						<span>Dashboard</span>
 					</li>
 					<p className="title">LISTS</p>
-					<Link to="/users" style={{ textDecoration: "none" }}>
-						<li>
-							<PersonOutlineIcon className="icon" />
-							<span>Supervisors</span>
-						</li>
-					</Link>
-					<Link to="/products" style={{ textDecoration: "none" }}>
-						<li>
-							<StoreIcon className="icon" />
-							<span>Products</span>
-						</li>
-					</Link>
-					<Link to={"/warehouses"} style={{ textDecoration: "none" }}>
-						<li>
-							<CreditCardIcon className="icon" />
-							<span>Warehouses</span>
-						</li>
-					</Link>
-					<p className="title">Management</p>
-					<li>
-						<InsertChartIcon className="icon" />
-						<span>Manage Supervisors</span>
-					</li>
-					<li>
-						<NotificationsNoneIcon className="icon" />
-						<span>Manage warehouses</span>
-					</li>
-					<li>
-						<NotificationsNoneIcon className="icon" />
-						<span>Requests</span>
-					</li>
-					<li>
-						<NotificationsNoneIcon className="icon" />
-						<span>History</span>
-					</li>
+					{features.map((f) => {
+						return (
+							<Link key={f.name} to={f.url} style={{ textDecoration: "none" }}>
+								<li>
+									{f.icon}
+									<span>{f.name}</span>
+								</li>
+							</Link>
+						);
+					})}
+					{actor === "admin" && (
+						<>
+							<p className="title">Management</p>
+							<li>
+								<InsertChartIcon className="icon" />
+								<span>Manage Supervisors</span>
+							</li>
+							<li>
+								<NotificationsNoneIcon className="icon" />
+								<span>Manage warehouses</span>
+							</li>
+							<li>
+								<NotificationsNoneIcon className="icon" />
+								<span>Requests</span>
+							</li>
+							<li>
+								<NotificationsNoneIcon className="icon" />
+								<span>History</span>
+							</li>
+						</>
+					)}
 					<p className="title">USER</p>
 					<li>
 						<ExitToAppIcon className="icon" />

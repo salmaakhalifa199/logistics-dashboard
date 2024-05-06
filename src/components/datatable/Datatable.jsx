@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Button } from "@mui/material";
 
 const Datatable = () => {
 	const [data, setData] = useState(userRows);
@@ -15,16 +16,36 @@ const Datatable = () => {
 		{
 			field: "action",
 			headerName: "Action",
-			width: 200,
+			width: 250,
 			renderCell: (params) => {
 				return (
 					<div className="cellAction">
-						<div
-							className="deleteButton"
+						<Button
+							variant="outlined"
+							color="error"
+							size="small"
 							onClick={() => handleDelete(params.row.id)}
 						>
 							Delete
-						</div>
+						</Button>
+
+						<Button
+							variant="outlined"
+							color="info"
+							size="small"
+							// onClick={() => handleDelete(params.row.id)}
+						>
+							Edit
+						</Button>
+
+						<Button
+							variant="outlined"
+							color="success"
+							size="small"
+							// onClick={() => handleDelete(params.row.id)}
+						>
+							View
+						</Button>
 					</div>
 				);
 			},

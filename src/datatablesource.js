@@ -65,7 +65,7 @@ export const productsColumns = [
 	{
 		field: "rating",
 		headerName: "Rating",
-		width: 160,
+		width: 200,
 		renderCell: (params) => {
 			return (
 				<div className={`cellWithStatus ${params.row.rating.rates}`}>
