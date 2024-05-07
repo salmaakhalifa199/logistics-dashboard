@@ -2,40 +2,27 @@
 import React,{ useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { FaUser, FaLock  } from "react-icons/fa";
 import "./login.scss"
 const Login = () => {
   const [error, setError] = useState(false);
-  const [email,setEmail]=useState("");
+  const [username,setUsername]=useState("");
   const [password,setPassword]=useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
     
-    try {
-      // Make a POST request to your backend authentication endpoint
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (response.ok) {
-        const { token } = await response.json();
-        // Store the token in local storage
-        localStorage.setItem("token", token);
-        // Redirect to the home page or a protected route
-        navigate("/");
-      } else {
-        setError(true);
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      setError(true);
+    e.preventDefault();
+    let req= {
+      userName : username,
+      password : password
     }
+    let loginResponse = await axios.post('https://localhost:7233/api/Login' , req)
+    console.log(loginResponse.data);
+    let token = loginResponse.data.token
+    localStorage.setItem('JWT' , JSON.stringify(token))
+    navigate('/')
   };
 
   return (
@@ -49,9 +36,9 @@ const Login = () => {
        <FaUser  className="icon "/>
         <input
          type="text"
-         placeholder="Email" 
-         value={email} 
-         onChange={(e)=>setEmail(e.target.value)}
+         placeholder="Username" 
+         value={username} 
+         onChange={(e)=>setUsername(e.target.value)}
          required 
          className="form-control"/> 
         </div>

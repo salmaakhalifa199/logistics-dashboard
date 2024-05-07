@@ -39,6 +39,7 @@ function App() {
 								element={<New inputs={productInputs} title="Add New Product" />}
 							/>
 						</Route>
+						
 						<Route path="warehouses">
 							<Route index element={<Warehouses />} />
 						</Route>

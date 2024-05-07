@@ -41,7 +41,7 @@ const ProductsData = () => {
 							variant="outlined"
 							color="info"
 							size="small"
-							// onClick={() => handleDelete(params.row.id)}
+							
 						>
 							Edit
 						</Button>
