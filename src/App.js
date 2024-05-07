@@ -4,6 +4,7 @@ import Register from "./pages/register/Register";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
+import Requests from "./pages/Requests";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
@@ -42,6 +43,10 @@ function App() {
 						
 						<Route path="warehouses">
 							<Route index element={<Warehouses />} />
+						</Route>
+						
+						<Route path="requests">
+							<Route index element={<Requests />} />
 						</Route>
 					</Route>
 				</Routes>

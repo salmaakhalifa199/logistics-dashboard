@@ -21,6 +21,10 @@ const Sidebar = () => {
 	const { dispatch } = useContext(DarkModeContext);
 	const [actor, setActor] = useState("admin"); // change actor
 
+	const logout = ()=>{
+		localStorage.removeItem("JWT");
+		window.location.href="/login";
+	}
 	const adminFeatures = [
 		{
 			name: "Supervisors",
@@ -76,7 +80,6 @@ const Sidebar = () => {
 					<span className="logo">Logistics Dashboard ({actor})</span>
 				</Link>
 			</div>
-			<hr />
 			<div className="center">
 				<ul>
 					<p className="title">MAIN</p>
@@ -107,17 +110,15 @@ const Sidebar = () => {
 								<span>Manage warehouses</span>
 							</li>
 							<li>
-								<NotificationsNoneIcon className="icon" />
-								<span>Requests</span>
-							</li>
-							<li>
-								<NotificationsNoneIcon className="icon" />
-								<span>History</span>
+								<Link key="requests" to="/requests" style={{ textDecoration: "none" }}>
+									<NotificationsNoneIcon className="icon" />
+									<span>Requests History</span>
+								</Link>	
 							</li>
 						</>
 					)}
 					<p className="title">USER</p>
-					<li>
+					<li onClick={logout}>
 						<ExitToAppIcon className="icon" />
 						<span>Logout</span>
 					</li>
