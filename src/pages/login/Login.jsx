@@ -68,10 +68,6 @@ const Login = () => {
         <button type="submit">Login</button>
         <Link to="/register">Don't have an account? Register</Link>
         {error && <span>Wrong email or password!</span>}
-        {/* <Link to="/register" className="forget-password"> */}
-          {/* {""}
-          Do not have an account ? Register
-        </Link> */}
       </form>
     </div>
 

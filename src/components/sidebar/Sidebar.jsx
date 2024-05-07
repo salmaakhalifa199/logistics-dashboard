@@ -19,7 +19,7 @@ import HistoryIcon from "@mui/icons-material/History";
 
 const Sidebar = () => {
 	const { dispatch } = useContext(DarkModeContext);
-	const [actor, setActor] = useState("admin"); // change actor
+	const [actor, setActor] = useState("super"); // change actor
 
 	const logout = ()=>{
 		localStorage.removeItem("JWT");

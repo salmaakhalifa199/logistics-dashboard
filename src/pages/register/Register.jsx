@@ -9,6 +9,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [registrationMessage, setRegistrationMessage] = useState("");
   const navigate = useNavigate();
   const handleRegister = async (e) => {
     
@@ -18,12 +19,22 @@ const Register = () => {
       email : email,
       password : password
     }
-    let registerResponse = await axios.post('https://localhost:7233/api/Register' , req)
+    try {
+      let registerResponse = await axios.post('https://localhost:7233/api/Register' , req)
     console.log(registerResponse.data);
     let token = registerResponse.data.token
     localStorage.setItem('JWT' , JSON.stringify(token))
-    // window.open('http://localhost:3000/' , '_self')
-    navigate('/')
+    // // window.open('http://localhost:3000/' , '_self')
+    // navigate('/')
+    setRegistrationMessage("Registration successful!"); 
+   
+    setUsername("");
+    setEmail("");
+    setPassword("");
+  } catch (error) {
+    console.error("Registration failed:", error);
+    setRegistrationMessage("Registration failed. Please try again."); 
+  }
   };
 
 
@@ -61,18 +72,9 @@ const Register = () => {
             required
           />
         </div>
-        {/* <div className="input-container">
-        <FaLock className="icon " />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div> */}
+     {registrationMessage && <p className="registration-message">{registrationMessage}</p>}
         <button type="submit">Register</button>
-        <Link to="/login">Already have an account? Login</Link> {/* Link to the login page */}
+        <Link to="/login">Already have an account? Login</Link>
       </form>
     </div>
   );

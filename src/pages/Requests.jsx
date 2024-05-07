@@ -44,7 +44,7 @@ function Requests() {
                 <div className="reqInfo">
                     <p>Supervisor Name: {req.supervisorName}</p>
                     <p>
-                        Situation: {req.situation}
+                        Request_Type: {req.situation}
                     </p>
                     <p>
                         Warehouse ID: {req.warehouseId}
